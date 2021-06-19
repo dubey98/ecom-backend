@@ -1,0 +1,29 @@
+{
+  "name": "ecom-backend",
+  "version": "1.0.0",
+  "description": "Backend For Ecommerce Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dubey98/ecom-backend.git"
+  },
+  "author": "Shiv Dubey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dubey98/ecom-backend/issues"
+  },
+  "homepage": "https://github.com/dubey98/ecom-backend#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.14",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
