@@ -21,4 +21,9 @@ const lookupCategorySchema = new Schema({
       ref: "Lookup",
     },
   ],
+  isActive: Boolean,
 });
+
+const LookupCategory = mongoose.model("LookupCategory", lookupCategorySchema);
+
+module.exports = LookupCategory;

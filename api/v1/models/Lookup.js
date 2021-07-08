@@ -14,6 +14,7 @@ const lookupSchema = new Schema({
     minLength: 1,
     maxLength: 500,
   },
+  isActive : Boolean,
 });
 
 const Lookup = mongoose.model("Lookup", lookupSchema);
