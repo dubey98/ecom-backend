@@ -9,12 +9,14 @@ const userSchema = new Schema({
     last: { type: String, maxLength: 50 },
     middle: { type: String, maxLength: 50 },
   },
-  username: { type: String, unique: true, required: true },
+  username: { type: String, unique: true },
   password: {
     type: String,
   },
   email: {
     type: String,
+    unique: true,
+    required: true,
   },
   contact: {
     type: String,

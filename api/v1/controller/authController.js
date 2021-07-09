@@ -1,7 +1,10 @@
 const { body, validationResult } = require("express-validator");
 const User = require("./../models/User");
 const bcrypt = require("bcrypt");
-const saltRounds = process.env.salt_rounds;
+const jwt = require("jsonwebtoken");
+const stringConstants = require("./../constants/stringConstants");
+const secret = process.env.secret;
+const userController = require("./../controller/userController");
 
 exports.index = function (req, res) {
   res.json({ message: "made req to /auth/ working fine." });
@@ -17,54 +20,68 @@ exports.login = function (req, res) {
       if (err) {
         return res.status(500).json("Error while finding the user");
       }
-      if (found_user) {
-        if (bcrypt.compareSync(req.body.password, found_user.password)) {
-           
-        }
-      }
+      const token = createToken(found_user);
+      return res.json({ success: true, token });
     });
   }
 };
 
-exports.signup = function (req, res) {
-  const { errors } = validationResult(req);
-
-  if (errors.length !== 0 || req.body.password !== req.body.confirmPassword) {
-    if (req.body.password !== req.body.confirmPassword) {
-      errors.push({
-        value: req.body.password,
-        msg: "Password and confirm password dont match",
-        param: "confirmPassword",
-      });
-    }
-    return res.json({ errors: errors });
-  } else {
-    User.findOne({ username: req.body.username }).exec((err, found_user) => {
-      if (err) {
-        return res.status(500).json("Error while finding the user");
-      }
-      if (found_user) {
-        errors.push({
-          value: req.body.username,
-          param: "username",
-          msg: "The username already exists.",
-        });
-        return res.json({ ...req.body, errors });
-      }
-      const hashedPassword = bcrypt.hashSync(
-        req.body.password,
-        parseInt(saltRounds)
-      );
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword,
-      });
-      user.save((err) => {
+exports.signup = [
+  body("email")
+    .isString()
+    .trim()
+    .isEmail()
+    .custom((value) => {
+      User.findOne({ email: value }, "email", (err, user) => {
         if (err) {
-          return res.json("Error while creating the user");
+          throw new Error(stringConstants.userNotFound);
         }
-        return res.json(user);
+        if (user) {
+          throw new Error(stringConstants.emailInUse);
+        }
+        return true;
       });
+    }),
+  body("password").isString().trim(),
+  body("confirmPassword")
+    .isString()
+    .trim()
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        return new Error(stringConstants.passwordDontMatch);
+      }
+      return true;
+    }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return next(errors);
+    }
+
+    const user = new User({
+      email: req.body.email,
+      password: req.body.password,
     });
+
+    user.save((err, found_user) => {
+      if (err) {
+        console.log("Error creating user in signup.");
+        return next(err);
+      }
+      const token = createToken(found_user);
+      return res.json({ success: true, token });
+    });
+  },
+];
+
+function createToken(user) {
+  if (bcrypt.compareSync(req.body.password, user.password)) {
+    const accessInfo = {
+      username: user.username,
+      sub: user._id,
+    };
+    const accessToken = jwt.sign(accessInfo, secret);
+    return "Bearer " + accessToken;
   }
-};
+}

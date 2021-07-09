@@ -8,6 +8,7 @@ const db = require("./api/config/db");
 
 //import the routes
 const apiRouter = require("./api/v1/router");
+const passport = require("passport");
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//passport middleware
+app.use(passport.initialize());
 
 //define routes
 app.use("/api/v1", apiRouter);
@@ -29,7 +33,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   const message = req.app.get("env") === "development" ? err : {};
-  res.sendStatus(err.status || 500);
+  res.status(err.status || 500).json({ success: false, error: message });
 });
 
 module.exports = app;
