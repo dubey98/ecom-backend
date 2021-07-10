@@ -1,4 +1,4 @@
-const User = require("./../models/User");
+const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 
 exports.getAll = (req, res) => {
@@ -30,13 +30,11 @@ exports.createOne = [
     .isLength({ min: 5 }),
   body("email", "email is not a proper mail.").trim().isEmail(),
   body("contact").trim().isMobilePhone("en-IN"),
-  (req, res) => {
+  (req, res, next) => {
     const errors = validationResult(req);
-    if (errors) {
-      return res.json({
-        success: false,
-        error: errors.array(),
-      });
+    if (!errors.isEmpty()) {
+      console.log("in error of create one");
+      return next(errors);
     }
 
     const newUser = new User({
@@ -48,10 +46,7 @@ exports.createOne = [
     newUser.save((err, user) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({
-          success: false,
-          error: "Error while creating new user.",
-        });
+        return next(err);
       }
       return res.json({ success: true, user });
     });
