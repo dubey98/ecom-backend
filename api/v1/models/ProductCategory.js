@@ -9,3 +9,5 @@ const productCategorySchema = new Schema({
     defaulr: "None",
   },
 });
+
+module.exports = mongoose.model("ProductCategory", productCategorySchema);
