@@ -9,7 +9,7 @@ const userSchema = new Schema({
     last: { type: String, maxLength: 50 },
     middle: { type: String, maxLength: 50 },
   },
-  username: { type: String, unique: true },
+  username: { type: String },
   password: {
     type: String,
   },
@@ -52,7 +52,10 @@ userSchema.pre("save", function (next) {
   if (!user.isModified("password")) return next();
 
   try {
-    const hash = bcrypt.hashSync(user.password, process.env.salt_rounds);
+    const hash = bcrypt.hashSync(
+      user.password,
+      parseInt(process.env.salt_rounds)
+    );
     user.password = hash;
     return next();
   } catch (err) {
@@ -66,12 +69,13 @@ userSchema.pre("save", function (next) {
  * @param {callback} cb callback that takes two arguments
  * first is error and second is a boolean indicating if passwords are same
  */
-userSchema.methods.comparePassword = function (password, cb) {
-  bcrypt.compare(password, this.password, (err, isSame) => {
+userSchema.methods.comparePassword = (password, hashedPassword, cb) => {
+  console.log(password, hashedPassword);
+  bcrypt.compare(password, hashedPassword, (err, isSame) => {
     if (err) {
       return cb(err, false);
     } else {
-      return cb(null, true);
+      return isSame ? cb(null, true) : cb(null, false);
     }
   });
 };

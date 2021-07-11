@@ -5,19 +5,8 @@ const router = express.Router();
 
 const authController = require("./../controller/authController");
 
-router.post(
-  "/signup",
-  body("username").isString(),
-  body("password").isString(),
-  body("confirmPassword").isString(),
-  authController.signup
-);
+router.post("/signup", authController.signup);
 
-router.post(
-  "/login",
-  body("username").isString(),
-  body("password").isString(),
-  authController.login
-);
+router.post("/login", authController.login);
 
 module.exports = router;
