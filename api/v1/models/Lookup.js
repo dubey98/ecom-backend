@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const lookupSchema = new Schema({
-  id: Number,
+  id: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   name: {
     type: String,
     minLength: 1,
@@ -14,7 +18,7 @@ const lookupSchema = new Schema({
     minLength: 1,
     maxLength: 500,
   },
-  isActive : Boolean,
+  isActive: Boolean,
 });
 
 const Lookup = mongoose.model("Lookup", lookupSchema);

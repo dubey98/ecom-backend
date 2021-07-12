@@ -10,6 +10,8 @@ router.get("/:id", lookupController.getOne);
 
 router.post("/:id?", lookupController.create);
 
+router.delete("/", lookupController.deleteAll);
+
 router.delete("/:id", lookupController.delete);
 
 router.put("/:id", lookupController.update);

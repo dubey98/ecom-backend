@@ -23,6 +23,10 @@ app.use(passport.initialize());
 //define routes
 app.use("/api/v1", apiRouter);
 
+//populate database for values
+//uncomment to populate dbs
+//require("./populateDB/populatelookupCategories").start();
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   const error = new Error("Route not found.");

@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator");
 const helpers = require("../helpers/helper");
 
 exports.getAll = (req, res, next) => {
-  LookupCategory.find()
+  LookupCategory.find({ id: 1 })
     .populate("subCategories")
     .populate("lookups")
     .exec((err, doc) => {
@@ -14,6 +14,16 @@ exports.getAll = (req, res, next) => {
       }
       return res.json({ success: true, doc });
     });
+};
+
+exports.deleteAll = (req, res, next) => {
+  LookupCategory.deleteMany({}, {}, (err, list) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, list });
+  });
 };
 
 exports.getOne = (req, res, next) => {
@@ -26,13 +36,6 @@ exports.getOne = (req, res, next) => {
       if (err) {
         console.log(err);
         return next(err);
-      }
-      if (!lookupCategory) {
-        const error = helpers.createError(
-          "id",
-          "cannot find any document with this id."
-        );
-        return next(error);
       }
       return res.json({ success: true, lookupCategory });
     });

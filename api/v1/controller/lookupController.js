@@ -24,6 +24,16 @@ exports.getAll = (req, res, next) => {
   });
 };
 
+exports.deleteAll = (req, res, next) => {
+  Lookup.deleteMany({}, {}, (err, list) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, list });
+  });
+};
+
 exports.create = [
   body("name", "name must be provided").trim().isString().notEmpty(),
   body("description", "description not provided").trim().notEmpty().isString(),

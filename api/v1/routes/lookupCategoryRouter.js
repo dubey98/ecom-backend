@@ -12,6 +12,8 @@ router.get("/:id", lookupCategoryController.getOne);
 
 router.post("/", lookupCategoryController.create);
 
+router.delete("/", lookupCategoryController.deleteAll);
+
 router.delete("/:id", lookupCategoryController.delete);
 
 router.put("/:id", lookupCategoryController.update);
