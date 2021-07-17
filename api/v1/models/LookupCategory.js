@@ -2,35 +2,38 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const lookupCategorySchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  name: {
-    type: String,
-    minLength: 1,
-    maxLength: 50,
-  },
-  description: {
-    type: String,
-    maxLength: 200,
-  },
-  subCategories: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "LookupCategory",
+const lookupCategorySchema = new Schema(
+  {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
     },
-  ],
-  lookups: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Lookup",
+    name: {
+      type: String,
+      minLength: 1,
+      maxLength: 50,
     },
-  ],
-  isActive: Boolean,
-});
+    description: {
+      type: String,
+      maxLength: 200,
+    },
+    subCategories: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "LookupCategory",
+      },
+    ],
+    lookups: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Lookup",
+      },
+    ],
+    isActive: Boolean,
+  },
+  { timestamps: true }
+);
 
 // TODO : throws error in model.countDocuments
 // lookupCategorySchema.pre("save", function (next) {

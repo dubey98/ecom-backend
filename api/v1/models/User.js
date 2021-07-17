@@ -2,44 +2,47 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  /***************Personal details  *****************/
-  name: {
-    first: { type: String, maxLength: 50 },
-    last: { type: String, maxLength: 50 },
-    middle: { type: String, maxLength: 50 },
-  },
-  username: { type: String },
-  password: {
-    type: String,
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  contact: {
-    type: String,
-  },
-  /*****************Address proofs***************** */
-  defaultAddress: {
-    type: Schema.Types.ObjectId,
-    ref: "address",
-  },
-  addressList: [
-    {
+const userSchema = new Schema(
+  {
+    /***************Personal details  *****************/
+    name: {
+      first: { type: String, maxLength: 50 },
+      last: { type: String, maxLength: 50 },
+      middle: { type: String, maxLength: 50 },
+    },
+    username: { type: String },
+    password: {
+      type: String,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    contact: {
+      type: String,
+    },
+    /*****************Address proofs***************** */
+    defaultAddress: {
       type: Schema.Types.ObjectId,
       ref: "address",
     },
-  ],
-  /***************Order List and favourite List *****/
-  favourites: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Favorite",
-    },
-  ],
-});
+    addressList: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "address",
+      },
+    ],
+    /***************Order List and favourite List *****/
+    favourites: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Favorite",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 /** virtual property for fullname */
 userSchema.virtual("fullname").get(function () {

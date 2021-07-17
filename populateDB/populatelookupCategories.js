@@ -24,6 +24,15 @@ function populateLookupCategory() {
   );
   populateLookups(root);
 
+  for (let sub of root.subCategories) {
+    sub.save((err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+    });
+  }
+
   root.save((err) => {
     if (err) {
       console.log(err);

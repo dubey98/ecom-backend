@@ -5,8 +5,13 @@ const Schema = mongoose.Schema;
 const productCategorySchema = new Schema({
   name: {
     type: String,
-    enum: ["Men", "Women", "Kids", "Home & Living", "Beauty", "None"],
-    defaulr: "None",
+  },
+  description: {
+    type: String,
+  },
+  parent_id: {
+    type: Schema.Types.ObjectId,
+    ref: "ProductCategory",
   },
 });
 

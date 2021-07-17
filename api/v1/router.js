@@ -7,8 +7,11 @@ const authRouter = require("./routes/authRouter");
 const lookupCategoryRouter = require("./routes/lookupCategoryRouter");
 const lookupRouter = require("./routes/lookupRouter");
 const passport = require("./../config/passport");
+const shopRouter = require("./routes/shopRouter");
 
 router.use("/auth", authRouter);
+
+router.use("/shop/", shopRouter);
 
 router.use(
   "/user",
