@@ -30,6 +30,7 @@ const productSchema = new Schema(
     },
     sold: {
       type: Number,
+      min: [0, "minimum items sold can be zero."],
     },
     vendor: {
       type: Schema.Types.ObjectId,

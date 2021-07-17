@@ -1,9 +1,8 @@
 const LookupCategory = require("../models/LookupCategory");
 const Lookup = require("../models/Lookup");
 const { body, validationResult } = require("express-validator");
-const helpers = require("../helpers/helper");
 
-exports.getAll = (req, res, next) => {
+exports.getAllLookupCategory = (req, res, next) => {
   LookupCategory.find({ id: 1 })
     .populate("subCategories")
     .populate("lookups")
@@ -16,7 +15,7 @@ exports.getAll = (req, res, next) => {
     });
 };
 
-exports.deleteAll = (req, res, next) => {
+exports.deleteAllLookupCategory = (req, res, next) => {
   LookupCategory.deleteMany({}, {}, (err, list) => {
     if (err) {
       console.log(err);
@@ -26,7 +25,7 @@ exports.deleteAll = (req, res, next) => {
   });
 };
 
-exports.getOne = (req, res, next) => {
+exports.getOneLookupCategory = (req, res, next) => {
   const id = req.params.id;
 
   LookupCategory.find({ _id: id })
@@ -41,7 +40,7 @@ exports.getOne = (req, res, next) => {
     });
 };
 
-exports.count = (req, res, next) => {
+exports.countLookupCategory = (req, res, next) => {
   LookupCategory.countDocuments((err, count) => {
     if (err) {
       console.log(err);
@@ -54,7 +53,7 @@ exports.count = (req, res, next) => {
   });
 };
 
-exports.delete = (req, res, next) => {
+exports.deleteLookupCategory = (req, res, next) => {
   const id = req.params.id;
   LookupCategory.findByIdAndDelete(id, {}, (err, doc) => {
     if (err) {
@@ -65,7 +64,7 @@ exports.delete = (req, res, next) => {
   });
 };
 
-exports.create = [
+exports.createLookupCategory = [
   body("name", "name is mandatory").trim().notEmpty().isString(),
   body("description", "A description would be nice")
     .trim()
@@ -144,7 +143,7 @@ exports.create = [
   },
 ];
 
-exports.update = [
+exports.updateLookupCategory = [
   body("name", "name is mandatory").trim().notEmpty().isString(),
   body("description", "A description would be nice")
     .trim()
@@ -222,6 +221,123 @@ exports.update = [
         }
         return res.json({ success: true, lookupCategory });
       });
+    });
+  },
+];
+
+exports.getOneLookup = (req, res, next) => {
+  const id = req.params.id;
+
+  Lookup.findById(id, "name description", {}, (err, lookup) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, lookup });
+  });
+};
+
+exports.getAllLookup = (req, res, next) => {
+  Lookup.find({}).exec((err, lookup) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, lookup });
+  });
+};
+
+exports.deleteAllLookup = (req, res, next) => {
+  Lookup.deleteMany({}, {}, (err, list) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, list });
+  });
+};
+
+exports.createLookup = [
+  body("name", "name must be provided").trim().isString().notEmpty(),
+  body("description", "description not provided").trim().notEmpty().isString(),
+  body("isActive", "must be a boolean").isBoolean(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return next(errors.array());
+    }
+
+    const id = req.params.id;
+
+    const lookup = new Lookup({
+      name: req.body.name,
+      description: req.body.description,
+      isActive: req.body.isActive,
+    });
+
+    if (id) {
+      LookupCategory.find({ _id: id })
+        .populate("lookups")
+        .exec((err, lookupCategory) => {
+          if (err) {
+            console.log(err);
+            return next(err);
+          }
+          lookupCategory.lookups.push(lookup);
+          lookupCategory.save((err) => {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+            return res.json({
+              success: true,
+              lookup,
+            });
+          });
+        });
+    }
+
+    lookup.save((err, newLookup) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      res.json({ success: true, newLookup });
+    });
+  },
+];
+
+exports.deleteLookup = (req, res, next) => {
+  const id = req.params.id;
+
+  Lookup.findByIdAndDelete(id, {}, (err, lookup) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    return res.json({ success: true, lookup });
+  });
+};
+
+exports.updateLookup = [
+  body("name", "name must be provided").trim().isString().notEmpty(),
+  body("description", "description not provided").trim().notEmpty().isString(),
+  body("isActive", "must be a boolean").isBoolean(),
+  (req, res, next) => {
+    const id = req.params.id;
+
+    const lookup = new Lookup({
+      _id: id,
+      name: req.body.name,
+      description: req.body.description,
+    });
+    Lookup.findByIdAndUpdate(id, lookup, (err, updated) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      return res.json({ success: true, updated });
     });
   },
 ];

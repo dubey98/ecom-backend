@@ -1,44 +1,24 @@
 const express = require("express");
-const homeController = require("./../controller/shopController");
+const shopController = require("./../controller/shopController");
 
 const router = express.Router();
 
-router.get("/men", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/", shopController.home);
 
-router.get("/women", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/men", shopController.men);
 
-router.get("/kids", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/women", shopController.women);
 
-router.get("/homeandliving", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/kids", shopController.kids);
 
-router.get("/beauty", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/homeandliving", shopController.homeandliving);
 
-router.get("/search", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/beauty", shopController.beauty);
 
-router.get("/products", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/search", shopController.search);
 
-router.get("/:id", (req, res, next) => {
-  return res.json("Not IMplemented");
-});
+router.get("/products", shopController.products);
 
-router.get("/", (req, res, next) => {
-  const id = req.params.id;
-
-  res.json({ success: true, params: id });
-});
+router.get("/:id", shopController.product);
 
 module.exports = router;

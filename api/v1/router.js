@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("./../config/passport");
 
 const userRouter = require("./routes/userRouter");
-const addressRouter = require("./routes/addressRouter");
 const authRouter = require("./routes/authRouter");
-const lookupCategoryRouter = require("./routes/lookupCategoryRouter");
-const lookupRouter = require("./routes/lookupRouter");
-const passport = require("./../config/passport");
 const shopRouter = require("./routes/shopRouter");
+const adminRouter = require("./routes/adminRouter");
+const vendorRouter = require("./routes/vendorRouter");
 
 router.use("/auth", authRouter);
 
@@ -20,13 +19,15 @@ router.use(
 );
 
 router.use(
-  "/address",
+  "/vendor",
   passport.authenticate(["jwt", "local"], { session: false }),
-  addressRouter
+  vendorRouter
 );
 
-router.use("/lookup-category", lookupCategoryRouter);
-
-router.use("/lookup", lookupRouter);
+router.use(
+  "/admin",
+  passport.authenticate(["jwt", "local"], { session: false }),
+  adminRouter
+);
 
 module.exports = router;
