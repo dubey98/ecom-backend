@@ -23,11 +23,11 @@ exports.login = [
   }),
   body("password", "password cannot be empty").notEmpty().trim().isString(),
   (req, res, next) => {
+    console.log(req.body);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log(errors.isEmpty());
-      console.log("returning error from validation ");
+      res.status(400);
       return next(errors.array());
     }
     const { email, password } = req.body;
@@ -65,16 +65,13 @@ exports.signup = [
     .trim()
     .isEmail(),
   body("email", "email already in use.").custom((value) => {
-    return User.findOne({ email: value }, "email", (err, user) => {
-      if (err) {
-        return new Promise.reject(stringConstants.userNotFound);
-      }
-      if (user) {
-        console.log(user);
-        return false;
-      }
-      return true;
-    });
+    return User.findOne({ email: value })
+      .exec()
+      .then((user) => {
+        if (!user) {
+          return Promise.resolve();
+        } else return Promise.reject("Email already in use");
+      });
   }),
   body("password").isString().trim(),
   body("confirmPassword", "passwords don't match.")
@@ -90,7 +87,6 @@ exports.signup = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log("came here ", errors);
       return next(errors.array());
     }
 
@@ -105,7 +101,7 @@ exports.signup = [
         return next(err);
       }
       const token = createToken(user);
-      return res.json({ success: true, token });
+      return res.json({ success: true, token, email: user.email });
     });
   },
 ];

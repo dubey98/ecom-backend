@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 //passport middleware
 app.use(passport.initialize());
 
+app.use(express.static("public"));
 //define routes
 app.use("/api/v1", apiRouter);
 
@@ -37,7 +38,7 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   const message = req.app.get("env") === "development" ? err : {};
-  res.status(err.status || 500).json({ success: false, error: message });
+  res.status(res.statusCode || 500).json({ success: false, error: message });
 });
 
 module.exports = app;

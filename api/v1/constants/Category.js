@@ -54,3 +54,11 @@ exports.BeautySubcategory = {
   Fragrances: "Fragrances",
   Appliances: "Appliances",
 };
+
+exports.OrderStatus = {
+  OPEN: "Open Ordes",
+  CLOSED: "Completed Orders",
+  SHIPPED: "Shipped Orders",
+  CCANCELLED: "Customer cancelled orders",
+  VCANCELLED: "Orders cancelled by us",
+};

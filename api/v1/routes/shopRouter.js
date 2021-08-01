@@ -19,6 +19,8 @@ router.get("/search", shopController.search);
 
 router.get("/products", shopController.products);
 
+router.get("/filters", shopController.filters);
+
 router.get("/:id", shopController.product);
 
 module.exports = router;

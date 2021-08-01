@@ -55,6 +55,8 @@ exports.beauty = (req, res, next) => {
 };
 
 exports.products = (req, res, next) => {
+  console.log(req.query);
+
   const limit = parseInt(req.query.limit) || 50;
   const offset = parseInt(req.query.offset) || 0;
 
@@ -73,6 +75,24 @@ exports.products = (req, res, next) => {
 exports.product = [
   param("id", "please pass a valid id.").isMongoId(),
   (req, res, next) => {
+    const data = {
+      images: [
+        "http://localhost:8080/images/detail/m1.webp",
+        "http://localhost:8080/images/detail/m2.webp",
+        "http://localhost:8080/images/detail/m3.jpg",
+        "http://localhost:8080/images/detail/m4.webp",
+      ],
+      brandName: "BrandName",
+      brandDescription: "A little Description about the brand",
+      price: 4500,
+      mrpPrice: 9000,
+      discount: "20%",
+      summary: "Maroon solid T-shirt, has a round neck, short sleeves",
+      sizeFitDescription: "The model (height 6') is wearing a size M",
+      materialandcare: ["Cotton", "Rayon", "Machine wash"],
+    };
+    return res.json({ success: true, data });
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -99,4 +119,23 @@ exports.product = [
 
 exports.search = (req, res, next) => {
   return res.json({ success: true, category: "search" });
+};
+
+exports.filters = (req, res, next) => {
+  const filtersData = [
+    {
+      title: "CATEGORIES",
+      filters: ["men", "women", "kids", "Home & Living", "Beauty"],
+    },
+    {
+      title: "Brands",
+      filters: ["adidas", "nike", "myntra", "amazon", "flipkart"],
+    },
+  ];
+
+  // men category home page
+  res.json({
+    success: true,
+    data: filtersData,
+  });
 };
