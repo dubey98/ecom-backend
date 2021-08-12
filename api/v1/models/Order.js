@@ -44,12 +44,15 @@ const orderItemSchema = new Schema(
     freezedPrice: {
       type: Number,
     },
+    mrp: {
+      type: Number,
+    },
     currency: String,
   },
   { timestamps: true }
 );
 
-const shoppingCartSchema = new Schema(
+const cartSchema = new Schema(
   {
     orderItems: [
       {
@@ -63,7 +66,7 @@ const shoppingCartSchema = new Schema(
 
 const Order = mongoose.model("Order", orderSchema);
 const OrderItem = mongoose.model("OrderItem", orderItemSchema);
-const Cart = mongoose.model("Cart", shoppingCartSchema);
+const Cart = mongoose.model("Cart", cartSchema);
 
 module.exports = {
   Order,

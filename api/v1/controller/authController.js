@@ -9,17 +9,18 @@ exports.login = [
     .notEmpty()
     .trim()
     .isEmail(),
-  body("email", "email or password incorrect").custom((value) => {
-    return User.findOne({ email: value }, "email", {}, (err, user) => {
-      if (err) {
-        console.log(err);
-        return false;
-      }
-      if (user) {
-        return false;
-      }
-      return true;
-    });
+  body("email").custom((value) => {
+    return User.findOne({ email: value })
+      .exec()
+      .then((user) => {
+        if (user) {
+          return Promise.resolve();
+        } else return Promise.reject("Email or password incorrect.");
+      })
+      .catch((err) => {
+        console.log(err, "error");
+        return Promise.reject("Email or password incorrect.");
+      });
   }),
   body("password", "password cannot be empty").notEmpty().trim().isString(),
   (req, res, next) => {
@@ -27,7 +28,6 @@ exports.login = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(400);
       return next(errors.array());
     }
     const { email, password } = req.body;
@@ -108,8 +108,9 @@ exports.signup = [
 
 function createToken(user) {
   const accessInfo = {
-    username: user.username,
-    sub: user._id,
+    sub: {
+      id: user._id,
+    },
   };
   const accessToken = jwt.sign(accessInfo, secret);
   return "Bearer " + accessToken;

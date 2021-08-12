@@ -4,21 +4,25 @@ const router = express.Router();
 
 const userController = require("./../controller/userController");
 
-router.get("/address/:id", (req, res, next) => {
-  throw new Error("Not Implemented");
-});
+router.get("/address/", userController.getAllAddresses);
 
-router.post("/address/:id", (req, res, next) => {
-  throw new Error("Not Implemented");
-});
+router.get("/address/:id", userController.getOneAddress);
 
-router.put("/address/:id", (req, res, next) => {
-  throw new Error("Not Implemented");
-});
+router.post("/address/:id", userController.createAddress);
 
-router.delete("/address/:id", (req, res, next) => {
-  throw new Error("Not Implemented");
-});
+router.put("/address/:id", userController.updateAddress);
+
+router.delete("/address/:id", userController.deleteAddress);
+
+router.get("/getcart", userController.getCart);
+
+router.post("/addtocart/", userController.addToCart);
+
+router.post("/removefromcart", userController.removeFromCart);
+
+router.post("/favourite", userController.addToFav);
+
+router.get("/favourite/:id", userController.getFav);
 
 router.get("/", userController.getAll);
 

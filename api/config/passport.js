@@ -12,12 +12,11 @@ const options = {
 
 passport.use(
   new jwtStrategy(options, function (payload, done) {
-    console.log("in passport jwt ");
-    User.findOne({ _id: payload.sub }, function (err, user) {
+    User.findOne({ _id: payload.sub.id }, function (err, user) {
       if (err) {
+        console.log(err, "error in passport JWT");
         return done(err, false);
       }
-      console.log(user);
       if (user) {
         return done(null, user);
       } else {

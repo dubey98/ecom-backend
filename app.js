@@ -27,6 +27,7 @@ app.use("/api/v1", apiRouter);
 //populate database for values
 //uncomment to populate dbs
 //require("./populateDB/populatelookupCategories").start();
+//require("./populateDB/populateProducts").start();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -37,6 +38,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+  console.log(err);
   const message = req.app.get("env") === "development" ? err : {};
   res.status(res.statusCode || 500).json({ success: false, error: message });
 });

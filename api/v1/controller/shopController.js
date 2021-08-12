@@ -5,6 +5,7 @@ const LookupCategory = require("./../models/LookupCategory");
 const { Product, Price, Vendor } = require("./../models/Product");
 const Order = require("./../models/Order");
 const { validationResult, param } = require("express-validator");
+const { mapProductsListDTO } = require("../helpers/helper");
 
 exports.home = (req, res, next) => {
   // men category home page
@@ -55,12 +56,11 @@ exports.beauty = (req, res, next) => {
 };
 
 exports.products = (req, res, next) => {
-  console.log(req.query);
-
   const limit = parseInt(req.query.limit) || 50;
   const offset = parseInt(req.query.offset) || 0;
 
   Product.find({})
+    .populate("price")
     .skip(offset)
     .limit(limit)
     .exec((err, products) => {
@@ -68,7 +68,9 @@ exports.products = (req, res, next) => {
         console.log(err);
         return next(err);
       }
-      return res.json({ success: true, products });
+      const retProductList = mapProductsListDTO(products);
+
+      return res.json({ success: true, products: retProductList });
     });
 };
 

@@ -37,9 +37,13 @@ const userSchema = new Schema(
     favourites: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Favorite",
+        ref: "Product",
       },
     ],
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "Cart",
+    },
   },
   { timestamps: true }
 );
