@@ -15,6 +15,10 @@ exports.MenSubcategory = {
   SportsWear: "Sports Wear",
   PersonalCare: "Personal Care & Grooming",
   Gadgets: "Gadgets",
+  Gadgets1: "Gadgets",
+  Gadgets2: "Gadgets",
+  Gadgets3: "Gadgets",
+  Gadgets4: "Gadgets",
 };
 
 exports.WomenSubcategory = {

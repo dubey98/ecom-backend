@@ -1,8 +1,13 @@
 const User = require("../models/User");
+const Address = require("./../models/Address");
 const { Product } = require("./../models/Product");
 const { body, query, param, validationResult } = require("express-validator");
 const { Cart, OrderItem } = require("../models/Order");
-const { mapProductsListDTO, mapCartToDTO } = require("../helpers/helper");
+const {
+  mapProductsListDTO,
+  mapCartToDTO,
+  mapAddressToDTO,
+} = require("../helpers/helper");
 
 exports.getAll = (req, res) => {
   User.find().exec((err, userList) => {
@@ -105,41 +110,38 @@ exports.updateOne = [
   },
 ];
 
-exports.getCart = [
-  query("id", "id not correct.").notEmpty().isMongoId(),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(errors.array());
+exports.getCart = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(errors.array());
+  }
+  const id = req.user.id;
+
+  User.findById(id).exec((err, cartId) => {
+    if (err) {
+      console.log(err);
+      return next(err);
     }
-    const id = req.query.id;
 
-    User.findById(id).exec((err, cartId) => {
-      if (err) {
-        console.log(err);
-        return next(err);
-      }
+    Cart.findOne({ _id: cartId.cart })
+      .populate({
+        path: "orderItems",
+        populate: {
+          path: "product",
+          model: "Product",
+        },
+      })
+      .exec((err, cart) => {
+        if (err) {
+          console.log(err);
+          return next(err);
+        }
 
-      Cart.findOne({ _id: cartId.cart })
-        .populate({
-          path: "orderItems",
-          populate: {
-            path: "product",
-            model: "Product",
-          },
-        })
-        .exec((err, cart) => {
-          if (err) {
-            console.log(err);
-            return next(err);
-          }
-
-          const retCart = mapCartToDTO(cart);
-          return res.json({ success: true, cart: retCart });
-        });
-    });
-  },
-];
+        const retCart = mapCartToDTO(cart);
+        return res.json({ success: true, cart: retCart });
+      });
+  });
+};
 
 exports.addToCart = (req, res, next) => {
   const productId = req.body.id;
@@ -320,11 +322,60 @@ exports.getFav = [
   },
 ];
 
-exports.getAllAddresses = (req, res, next) => {};
+exports.getAllAddresses = (req, res, next) => {
+  const userId = req.user.id;
+
+  Address.find({ user: userId }).exec((err, addressList) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    const retAddressList = mapAddressToDTO(addressList);
+    return res.json({ success: true, addressList: retAddressList });
+  });
+};
 
 exports.getOneAddress = (req, res, next) => {};
 
-exports.createAddress = (req, res, next) => {};
+exports.createAddress = [
+  body("name", "name field is empty").trim().notEmpty(),
+  body("mobile", "need a mobile number").trim().notEmpty(),
+  body("city", "need the city too").trim().notEmpty(),
+  body("pincode", "need the pincode").trim().notEmpty(),
+  body("pincode", "provide a valid pincode").isPostalCode("IN"),
+  body("locality", "please provide the locality").trim().notEmpty(),
+  body("typeOfAddress", "which address type this is").notEmpty(),
+  body("addressLine", "provide a street address or flat no").trim().notEmpty(),
+  body("state", "state is required").trim().notEmpty(),
+  (req, res, next) => {
+    console.log("in create address");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json({ success: false, errors: errors.array() });
+    }
+    const userId = req.user.id;
+
+    const newAddress = new Address({
+      name: req.body.name,
+      mobile: req.body.mobile,
+      pincode: req.body.pincode,
+      State: req.body.state,
+      addressLine: req.body.addressLine,
+      locality: req.body.locality,
+      city: req.body.city,
+      typeOfAddress: req.body.typeOfAddress,
+      user: userId,
+    });
+
+    newAddress.save((err) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      return res.json({ success: true, address: newAddress });
+    });
+  },
+];
 
 exports.deleteAddress = (req, res, next) => {};
 

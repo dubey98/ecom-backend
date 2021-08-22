@@ -48,6 +48,10 @@ const addressSchema = new Schema(
       enum: ["Home", "Office"],
       default: "Office",
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );

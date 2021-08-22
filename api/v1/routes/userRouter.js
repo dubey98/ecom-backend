@@ -8,7 +8,7 @@ router.get("/address/", userController.getAllAddresses);
 
 router.get("/address/:id", userController.getOneAddress);
 
-router.post("/address/:id", userController.createAddress);
+router.post("/address/", userController.createAddress);
 
 router.put("/address/:id", userController.updateAddress);
 

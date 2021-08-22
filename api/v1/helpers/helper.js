@@ -50,3 +50,21 @@ exports.mapCartToDTO = function (cart) {
   }
   return retCartList;
 };
+
+exports.mapAddressToDTO = function (addressList) {
+  const retAddressList = [];
+  for (let address of addressList) {
+    let tempAddress = {
+      id: address._id,
+      name: address.name,
+      mobile: address.mobile,
+      city: address.city,
+      locality: address.locality,
+      pincode: address.pincode,
+      state: address.state,
+      addressLine: address.addressLine,
+    };
+    retAddressList.push(tempAddress);
+  }
+  return retAddressList;
+};
