@@ -6,54 +6,42 @@ const { Product, Price, Vendor } = require("./../models/Product");
 const Order = require("./../models/Order");
 const { validationResult, param } = require("express-validator");
 const { mapProductsListDTO } = require("../helpers/helper");
-const { MenSubcategory } = require("../constants/Category");
+const {
+  MenSubcategory,
+  filterCategory,
+  category,
+  brands,
+  WomenSubcategory,
+  KidsSubcategory,
+  homeAndLivingSubcategory,
+  BeautySubcategory,
+} = require("../constants/Category");
+const {
+  brandImg,
+  brandCardData,
+  menHeroData,
+  tileOneImageList,
+  HomePageCards,
+  detailImg,
+  tileOneImageWomen,
+  tileOneImageKids,
+} = require("../constants/ImageSrc");
 
 exports.home = (req, res, next) => {
   // men category home page
 
-  const brandCardData = [
-    {
-      src: "https://bulma.io/images/placeholders/1280x960.png",
-      imageAlt: "placeholder Image",
-      brandName: "sample brandname",
-      helpText: "this is a sample heptext",
-    },
-    {
-      src: "https://bulma.io/images/placeholders/1280x960.png",
-      imageAlt: "placeholder Image",
-      brandName: "sample brandname",
-      helpText: "this is a sample heptext",
-    },
-    {
-      src: "https://bulma.io/images/placeholders/1280x960.png",
-      imageAlt: "placeholder Image",
-      brandName: "sample brandname",
-      helpText: "this is a sample heptext",
-    },
-    {
-      src: "https://bulma.io/images/placeholders/1280x960.png",
-      imageAlt: "placeholder Image",
-      brandName: "sample brandname",
-      helpText: "this is a sample heptext",
-    },
-    {
-      src: "https://bulma.io/images/placeholders/1280x960.png",
-      imageAlt: "placeholder Image",
-      brandName: "sample brandname",
-      helpText: "this is a sample heptext",
-    },
-  ];
+  const brandCardData = HomePageCards;
 
   const imageData = [
     {
-      src: "http://localhost:8080/images/index/index2.jpg",
+      src: "https://i.ibb.co/vcJWdcq/index2.jpg",
       imageAlt: "group of people walking",
-      linksTo: "/shop/",
+      linksTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
     },
     {
-      src: "http://localhost:8080/images/index/index3.jpg",
+      src: "https://i.ibb.co/g6gtXth/index3.jpg",
       imageAlt: "A Man in a suit",
-      linksTo: "/shop/",
+      linksTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
     },
   ];
 
@@ -66,73 +54,13 @@ exports.home = (req, res, next) => {
 };
 
 exports.men = (req, res, next) => {
-  const tileOneImages = [
-    {
-      src: "https://i.ibb.co/pyz317L/men-business-1.jpg",
-      alt: "shoes",
-      text: "Find Your Look",
-      linksTo: "shop/products?category=men&subcategory=shoes",
-    },
-    {
-      src: "https://i.ibb.co/9bgqC4K/men-fashion-landscape.jpg",
-      alt: "business attire",
-      text: "Explore Business Attire",
-      linksTo: "shop/products?category=men&subcategory=shoes",
-    },
-    {
-      src: "https://i.ibb.co/C8P1tR4/levis.jpg",
-      alt: "denim",
-      text: "Explore Denims",
-      linksTo: "shop/products?category=men&subcategory=shoes",
-    },
-    {
-      src: "https://i.ibb.co/CKrbhBV/men-wardrobe.jpg",
-      alt: "tshirts",
-      text: "Expand your Wardrobe",
-      linksTo: "shop/products?category=men&subcategory=shoes",
-    },
-    {
-      src: "https://i.ibb.co/582JfQx/nike.jpg",
-      alt: "shoes",
-      text: "Explore Footwear",
-      linksTo: "shop/products?category=men&subcategory=shoes",
-    },
-  ];
+  const tileOneImages = tileOneImageList;
 
   const categories = MenSubcategory;
 
-  const brandCardsData = [
-    {
-      src: "https://i.ibb.co/RB71wM8/brand-1.jpg",
-      alt: "NIKE",
-      title: "NIKE",
-    },
-    {
-      src: "https://i.ibb.co/bFLx4w8/puma-brand.jpg",
-      alt: "PUMA",
-      title: "PUMA",
-    },
-    {
-      src: "https://i.ibb.co/C8P1tR4/levis.jpg",
-      alt: "NIKE",
-      title: "PUMA",
-    },
-    {
-      src: "https://i.ibb.co/582JfQx/nike.jpg",
-      alt: "NIKE",
-      title: "KIKI",
-    },
-    {
-      src: "https://i.ibb.co/C8P1tR4/levis.jpg",
-      alt: "NIKE",
-      title: "NIKE",
-    },
-  ];
+  const brandCardsData = brandCardData;
 
-  const herodata = {
-    src: "https://i.ibb.co/8KBcK32/men-fashion-1.jpg",
-    alt: "men fashion ",
-  };
+  const herodata = menHeroData;
 
   return res.json({
     success: true,
@@ -149,6 +77,10 @@ exports.women = (req, res, next) => {
   res.json({
     success: true,
     category: "women",
+    categories: WomenSubcategory,
+    tileOneImages: tileOneImageWomen,
+    brandCardsData: brandCardData,
+    herodata: menHeroData,
   });
 };
 
@@ -157,6 +89,10 @@ exports.kids = (req, res, next) => {
   res.json({
     success: true,
     category: "kids",
+    categories: KidsSubcategory,
+    tileOneImages: tileOneImageKids,
+    brandCardsData: brandCardData,
+    herodata: menHeroData,
   });
 };
 
@@ -165,6 +101,10 @@ exports.homeandliving = (req, res, next) => {
   res.json({
     success: true,
     category: "homeandliving",
+    categories: homeAndLivingSubcategory,
+    tileOneImages: tileOneImageList,
+    brandCardsData: brandCardData,
+    herodata: menHeroData,
   });
 };
 
@@ -173,40 +113,79 @@ exports.beauty = (req, res, next) => {
   res.json({
     success: true,
     category: "beauty",
+    categories: BeautySubcategory,
+    tileOneImages: tileOneImageList,
+    brandCardsData: brandCardData,
+    herodata: menHeroData,
   });
 };
 
+// /shop/products?filters
 exports.products = (req, res, next) => {
-  const limit = parseInt(req.query.limit) || 50;
-  const offset = parseInt(req.query.offset) || 0;
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const offset = parseInt(req.query.offset) || 0;
 
-  console.log("req data\n", req.query.data);
+    if (req.query.filters && Array.isArray(req.query.filters)) {
+      let categoryFilters = req.query.filters
+        .filter((filter) => {
+          return filter.category.toUpperCase() === "categories".toUpperCase();
+        })
+        .map((filter) => {
+          return {
+            category: filter.value.trim().toLowerCase(),
+          };
+        });
+      let brandFilters = req.query.filters
+        .filter((filter) => {
+          return filter.category.toUpperCase() === "brand".toUpperCase();
+        })
+        .map((filter) => {
+          return {
+            brand: { $regex: new RegExp(filter.value.toLowerCase(), "i") },
+          };
+        });
+      let queryArray = [...categoryFilters, ...brandFilters];
+      console.log(queryArray);
+      Product.find({ $or: queryArray })
+        .populate("price")
+        .skip(offset)
+        .limit(limit)
+        .exec((err, products) => {
+          if (err) {
+            console.log(err);
+            return next(err);
+          }
+          const retProductList = mapProductsListDTO(products);
 
-  Product.find({})
-    .populate("price")
-    .skip(offset)
-    .limit(limit)
-    .exec((err, products) => {
-      if (err) {
-        console.log(err);
-        return next(err);
-      }
-      const retProductList = mapProductsListDTO(products);
+          return res.json({ success: true, products: retProductList });
+        });
+    } else {
+      Product.find({})
+        .populate("price")
+        .skip(offset)
+        .limit(limit)
+        .exec((err, products) => {
+          if (err) {
+            console.log(err);
+            return next(err);
+          }
+          const retProductList = mapProductsListDTO(products);
 
-      return res.json({ success: true, products: retProductList });
-    });
+          return res.json({ success: true, products: retProductList });
+        });
+    }
+  } catch (ex) {
+    console.log(ex);
+    return next(ex);
+  }
 };
 
 exports.product = [
   param("id", "please pass a valid id.").isMongoId(),
   (req, res, next) => {
     const data = {
-      images: [
-        "http://localhost:8080/images/detail/m1.webp",
-        "http://localhost:8080/images/detail/m2.webp",
-        "http://localhost:8080/images/detail/m3.jpg",
-        "http://localhost:8080/images/detail/m4.webp",
-      ],
+      images: detailImg,
       brandName: "BrandName",
       brandDescription: "A little Description about the brand",
       price: 4500,
@@ -247,60 +226,29 @@ exports.search = (req, res, next) => {
 };
 
 exports.filters = (req, res, next) => {
+  const tempFilterList = [];
+
+  for (let [key, value] of Object.entries(category)) {
+    tempFilterList.push({
+      category: "categories",
+      value: key,
+      display: value,
+      checked: false,
+    });
+  }
+
+  for (let brand of brands) {
+    tempFilterList.push({
+      category: "brand",
+      value: brand,
+      display: brand,
+      checked: false,
+    });
+  }
+
   const filtersData = {
-    filterCategory: ["Categories", "Brands"],
-    filterList: [
-      {
-        category: "Categories",
-        value: "MEN",
-        checked: false,
-      },
-      {
-        category: "Categories",
-        value: "WOMEN",
-        checked: false,
-      },
-      {
-        category: "Categories",
-        value: "KIDS",
-        checked: false,
-      },
-      {
-        category: "Categories",
-        value: "HOME & LIVING",
-        checked: false,
-      },
-      {
-        category: "Categories",
-        value: "BEAUTY",
-        checked: false,
-      },
-      {
-        category: "Brands",
-        value: "ADIDAS",
-        checked: false,
-      },
-      {
-        category: "Brands",
-        value: "NIKE",
-        checked: false,
-      },
-      {
-        category: "Brands",
-        value: "HERE & NOW",
-        checked: false,
-      },
-      {
-        category: "Brands",
-        value: "PUMA",
-        checked: false,
-      },
-      {
-        category: "Brands",
-        value: "PREET",
-        checked: false,
-      },
-    ],
+    filterCategories: [...filterCategory],
+    filterList: tempFilterList,
   };
 
   // men category home page

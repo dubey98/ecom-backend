@@ -18,6 +18,7 @@ exports.createError = function (errFor, msg) {
 exports.mapProductsListDTO = function (productList) {
   const retProductList = [];
   for (let product of productList) {
+    // console.log(product);
     let tempProduct = {
       name: product.name,
       description: product.description,

@@ -27,7 +27,7 @@ app.use("/api/v1", apiRouter);
 //populate database for values
 //uncomment to populate dbs
 //require("./populateDB/populatelookupCategories").start();
-//require("./populateDB/populateProducts").start();
+// require("./populateDB/populateProducts").start();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

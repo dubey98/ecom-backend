@@ -7,7 +7,7 @@ const productSchema = new Schema(
     name: {
       type: String,
       maxLength: 200,
-      minLength: 5,
+      minLength: 1,
     },
     description: {
       type: String,
@@ -41,8 +41,12 @@ const productSchema = new Schema(
       ref: "Price",
     },
     category: {
-      type: Schema.Types.ObjectId,
-      ref: "ProductCategory",
+      type: String,
+      enum: ["men", "women", "kids", "homeandliving", "beauty", "none"],
+      default: "none",
+    },
+    subCategory: {
+      type: String,
     },
   },
   { timestamps: true }

@@ -6,8 +6,19 @@ exports.category = {
   Beauty: "Beauty",
 };
 
+exports.filterCategory = [
+  {
+    category: "categories",
+    display: "Category",
+  },
+  {
+    category: "brand",
+    display: "Brands",
+  },
+];
+
 exports.MenSubcategory = {
-  Topwear: "Topwear",
+  TShirts: "T-Shirts",
   BottomWear: "Bottomwear",
   IndianAndFestive: "Indian & Festive wear",
   Innerwear: "Innerwear & Sleepwear",
@@ -15,10 +26,10 @@ exports.MenSubcategory = {
   SportsWear: "Sports Wear",
   PersonalCare: "Personal Care & Grooming",
   Gadgets: "Gadgets",
-  Gadgets1: "Gadgets",
-  Gadgets2: "Gadgets",
-  Gadgets3: "Gadgets",
-  Gadgets4: "Gadgets",
+  Shirts: "Shirts",
+  Jeans: "Jeans",
+  Jackets: "Jackets",
+  Shorts: "Shorts",
 };
 
 exports.WomenSubcategory = {
@@ -30,6 +41,10 @@ exports.WomenSubcategory = {
   Sleepwear: "Lingerie & Sleep Wear",
   Gadgets: "Gadgets",
   Jewellery: "Jewellery",
+  Dresses: "Dresses",
+  Watches: "Watches",
+  Lingeries: "Lingeries",
+  Innerwear: "innerwears",
 };
 
 exports.KidsSubcategory = {
@@ -49,6 +64,13 @@ exports.homeAndLivingSubcategory = {
   HomeDecor: "Home Décor",
   Kitchen: "Kitchen & Table",
   Storage: "Storage",
+  AromasCandles: "AromasCandles",
+  Clocks: "Clocks",
+  Mirrors: "Mirrors",
+  WallDécor: "WallDécor",
+  WallShelves: "WallShelves",
+  Fountains: "Fountains",
+  ShowpiecesVases: "ShowpiecesVases",
 };
 
 exports.BeautySubcategory = {
@@ -57,6 +79,7 @@ exports.BeautySubcategory = {
   Haircare: "Hair Care",
   Fragrances: "Fragrances",
   Appliances: "Appliances",
+  MenGrooming: "MenGrooming",
 };
 
 exports.OrderStatus = {
@@ -66,3 +89,16 @@ exports.OrderStatus = {
   CCANCELLED: "Customer cancelled orders",
   VCANCELLED: "Orders cancelled by us",
 };
+
+exports.brands = [
+  "Adidas",
+  "Puma",
+  "H&M",
+  "HRX",
+  "Here & Now",
+  "killer",
+  "Poopies",
+  "Noosh",
+  "Gucci",
+  "PS",
+];

@@ -1,26 +1,71 @@
+https://i.ibb.co/pyz317L/men-business-1.jpg
+https://i.ibb.co/0m5HgkD/men-business-1.jpg
+https://i.ibb.co/XJ57j4x/men-footwear.jpg
+https://i.ibb.co/mXwQymt/men-tshirt.jpg
+https://i.ibb.co/CKrbhBV/men-wardrobe.jpg
+https://i.ibb.co/wNb1Dq2/men-business.jpg
 
-<a href="https://ibb.co/fvpCXgx"><img src="https://i.ibb.co/pyz317L/men-business-1.jpg" alt="men-business-1" border="0"></a>
+// men shopfront images
+https://i.ibb.co/9bgqC4K/men-fashion-landscape.jpg
+https://i.ibb.co/bFLx4w8/puma-brand.jpg
+https://i.ibb.co/8KBcK32/men-fashion-1.jpg
 
-<a href="https://ibb.co/h8dBLMF"><img src="https://i.ibb.co/XJ57j4x/men-footwear.jpg" alt="men-footwear" border="0"></a>
+// brand images
+https://i.ibb.co/582JfQx/nike.jpg
+https://i.ibb.co/937yhHs/puma.jpg
+https://i.ibb.co/jyrC3T5/adidas.jpg
+https://i.ibb.co/C8P1tR4/levis.jpg
+https://i.ibb.co/RB71wM8/brand-1.jpg
 
-<a href="https://ibb.co/4YGBScM"><img src="https://i.ibb.co/mXwQymt/men-tshirt.jpg" alt="men-tshirt" border="0"></a>
+//men images
+https://i.ibb.co/xLMKp8B/m2.webp
+https://i.ibb.co/rZ3ZFDM/m3.webp
+https://i.ibb.co/mR8yJt5/m4.webp
+https://i.ibb.co/cDSfgd5/m5.webp
+https://i.ibb.co/JkbxCFq/m6.webp
+https://i.ibb.co/cwFnJkn/m7.webp
+https://i.ibb.co/92wFLC5/m1.webp
 
-<a href="https://ibb.co/23bvgqc"><img src="https://i.ibb.co/CKrbhBV/men-wardrobe.jpg" alt="men-wardrobe" border="0"></a>
+//women images
+https://i.ibb.co/NSqLwZg/w5.webp
+https://i.ibb.co/tBxsJfW/w4.webp
+https://i.ibb.co/VH4dkzC/w6.webp
+https://i.ibb.co/1zsKRxB/w7.jpg
+https://i.ibb.co/4PGFDxJ/w8.webp
+https://i.ibb.co/82cH8gc/w1.webp
+https://i.ibb.co/StBHgpj/w2.webp
+https://i.ibb.co/1TxXbcM/w3.webp
 
-<a href="https://ibb.co/7Wb063N"><img src="https://i.ibb.co/582JfQx/nike.jpg" alt="nike" border="0"></a>
+// kids images
+https://i.ibb.co/B3Bpk6b/k3.webp
+https://i.ibb.co/TBHWW7f/k2.webp
+https://i.ibb.co/PWjqSGm/k4.webp
+https://i.ibb.co/MftTsXZ/k5.webp
+https://i.ibb.co/t3hYS9z/k6.webp
+https://i.ibb.co/sRvtJDw/k7.webp
+https://i.ibb.co/WfCXMZJ/k8.webp
+https://i.ibb.co/2ZgTXNs/k9.webp
+https://i.ibb.co/MpwXLSs/k1.webp
 
-<a href="https://ibb.co/sJZsC9y"><img src="https://i.ibb.co/937yhHs/puma.jpg" alt="puma" border="0"></a>
+//home images
+https://i.ibb.co/M1Qy0k0/h2.webp
+https://i.ibb.co/b2nqKvX/h1.webp
+https://i.ibb.co/7zwg1N2/h3.webp
+https://i.ibb.co/Wk25t2N/h4.webp
 
-<a href="https://ibb.co/McCzPsh"><img src="https://i.ibb.co/jyrC3T5/adidas.jpg" alt="adidas" border="0"></a>
+// detail image
+https://i.ibb.co/g3SfBg1/m2.webp
+https://i.ibb.co/Ttqcd2W/m1.webp
+https://i.ibb.co/0t7DqsL/m3.jpg
+https://i.ibb.co/Yp1zLwB/m4.webp
 
-<a href="https://ibb.co/2hZn6GR"><img src="https://i.ibb.co/C8P1tR4/levis.jpg" alt="levis" border="0"></a>
+// index 
+https://i.ibb.co/g6gtXth/index3.jpg
+https://i.ibb.co/vcJWdcq/index2.jpg
 
-<a href="https://ibb.co/Y7KGvSV"><img src="https://i.ibb.co/wNb1Dq2/men-business.jpg" alt="men-business" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>upload image free</a><br />
-
-<a href="https://ibb.co/T42HF0j"><img src="https://i.ibb.co/9bgqC4K/men-fashion-landscape.jpg" alt="men-fashion-landscape" border="0"></a>
-
-<a href="https://ibb.co/BrwmM7k"><img src="https://i.ibb.co/RB71wM8/brand-1.jpg" alt="brand-1" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>upload png</a><br />
-
-<a href="https://ibb.co/zFb1390"><img src="https://i.ibb.co/bFLx4w8/puma-brand.jpg" alt="puma-brand" border="0"></a>
-
-<a href="https://ibb.co/DVbpVXk"><img src="https://i.ibb.co/8KBcK32/men-fashion-1.jpg" alt="men-fashion-1" border="0"></a>
+// beauty
+https://i.ibb.co/FsHLMjp/b5.webp
+https://i.ibb.co/6tv84C9/b4.webp
+https://i.ibb.co/mNpNq3b/b1.webp
+https://i.ibb.co/V3C3ncv/b2.webp
+https://i.ibb.co/7v03fkZ/b3.webp
