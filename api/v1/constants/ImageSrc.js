@@ -112,31 +112,31 @@ exports.tileOneImageList = [
     src: "https://i.ibb.co/pyz317L/men-business-1.jpg",
     alt: "shoes",
     text: "Find Your Look",
-    linksTo: "shop/products?category=men&subcategory=shoes",
+    linksTo: "/shop/products?category=men&subcategory=shoes",
   },
   {
     src: "https://i.ibb.co/9bgqC4K/men-fashion-landscape.jpg",
     alt: "business attire",
     text: "Explore Business Attire",
-    linksTo: "shop/products?category=men&subcategory=shoes",
+    linksTo: "/shop/products?category=men&subcategory=shoes",
   },
   {
     src: "https://i.ibb.co/C8P1tR4/levis.jpg",
     alt: "denim",
     text: "Explore Denims",
-    linksTo: "shop/products?category=men&subcategory=shoes",
+    linksTo: "/shop/products?category=men&subcategory=shoes",
   },
   {
     src: "https://i.ibb.co/CKrbhBV/men-wardrobe.jpg",
     alt: "tshirts",
     text: "Expand your Wardrobe",
-    linksTo: "shop/products?category=men&subcategory=shoes",
+    linksTo: "/shop/products?category=men&subcategory=shoes",
   },
   {
     src: "https://i.ibb.co/582JfQx/nike.jpg",
     alt: "shoes",
     text: "Explore Footwear",
-    linksTo: "shop/products?category=men&subcategory=shoes",
+    linksTo: "/shop/products?category=men&subcategory=shoes",
   },
 ];
 

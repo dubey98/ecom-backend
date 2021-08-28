@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Vastram",
+  "name": "An Ecommerce Application",
   "icons": [
     {
       "src": "favicon.ico",
