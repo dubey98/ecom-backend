@@ -5,7 +5,7 @@ const LookupCategory = require("./../models/LookupCategory");
 const { Product, Price, Vendor } = require("./../models/Product");
 const Order = require("./../models/Order");
 const { validationResult, param } = require("express-validator");
-const { mapProductsListDTO } = require("../helpers/helper");
+const { mapProductsListDTO, mapProductToDTO } = require("../helpers/helper");
 const {
   MenSubcategory,
   filterCategory,
@@ -73,6 +73,11 @@ exports.men = (req, res, next) => {
 };
 
 exports.women = (req, res, next) => {
+  const heroData = {
+    src: "https://i.ibb.co/mHJxtsF/photo-1603122630570-7fd434d470d0-ixlib-rb-1-2.jpg",
+    alt: "women fashion ",
+  };
+
   // men category home page
   res.json({
     success: true,
@@ -80,11 +85,16 @@ exports.women = (req, res, next) => {
     categories: WomenSubcategory,
     tileOneImages: tileOneImageWomen,
     brandCardsData: brandCardData,
-    herodata: menHeroData,
+    herodata: heroData,
   });
 };
 
 exports.kids = (req, res, next) => {
+  const heroData = {
+    src: "https://i.ibb.co/BGp1rQ7/photo-1531325082793-ca7c9db6a4c1-ixid-Mnwx-Mj-A3f-DB8-MHxwa-G90by1w-YWdlf-Hx8f-GVuf-DB8f-Hx8-ixlib-r.jpg",
+    alt: "women fashion ",
+  };
+
   // men category home page
   res.json({
     success: true,
@@ -92,7 +102,7 @@ exports.kids = (req, res, next) => {
     categories: KidsSubcategory,
     tileOneImages: tileOneImageKids,
     brandCardsData: brandCardData,
-    herodata: menHeroData,
+    herodata: heroData,
   });
 };
 
@@ -123,8 +133,9 @@ exports.beauty = (req, res, next) => {
 // /shop/products?filters
 exports.products = (req, res, next) => {
   try {
-    const limit = parseInt(req.query.limit) || 50;
+    const limit = parseInt(req.query.limit);
     const offset = parseInt(req.query.offset) || 0;
+    console.log(limit);
 
     if (req.query.filters && Array.isArray(req.query.filters)) {
       let categoryFilters = req.query.filters
@@ -146,7 +157,6 @@ exports.products = (req, res, next) => {
           };
         });
       let queryArray = [...categoryFilters, ...brandFilters];
-      console.log(queryArray);
       Product.find({ $or: queryArray })
         .populate("price")
         .skip(offset)
@@ -157,8 +167,17 @@ exports.products = (req, res, next) => {
             return next(err);
           }
           const retProductList = mapProductsListDTO(products);
-
-          return res.json({ success: true, products: retProductList });
+          Product.countDocuments({ $or: queryArray }, (err, count) => {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+            return res.json({
+              success: true,
+              products: retProductList,
+              totalCount: count,
+            });
+          });
         });
     } else {
       Product.find({})
@@ -171,8 +190,18 @@ exports.products = (req, res, next) => {
             return next(err);
           }
           const retProductList = mapProductsListDTO(products);
-
-          return res.json({ success: true, products: retProductList });
+          console.log(retProductList.length);
+          Product.countDocuments((err, count) => {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+            return res.json({
+              success: true,
+              products: retProductList,
+              totalCount: count,
+            });
+          });
         });
     }
   } catch (ex) {
@@ -184,19 +213,6 @@ exports.products = (req, res, next) => {
 exports.product = [
   param("id", "please pass a valid id.").isMongoId(),
   (req, res, next) => {
-    const data = {
-      images: detailImg,
-      brandName: "BrandName",
-      brandDescription: "A little Description about the brand",
-      price: 4500,
-      mrpPrice: 9000,
-      discount: "20%",
-      summary: "Maroon solid T-shirt, has a round neck, short sleeves",
-      sizeFitDescription: "The model (height 6') is wearing a size M",
-      materialandcare: ["Cotton", "Rayon", "Machine wash"],
-    };
-    return res.json({ success: true, data });
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -206,16 +222,18 @@ exports.product = [
     const id = req.params.id;
 
     Product.findById(id)
-      .populate("productCategory")
       .populate("price")
       .exec((err, product) => {
         if (err) {
           console.log(err);
           return next(err);
         }
+
+        const retProduct = mapProductToDTO(product);
+
         return res.json({
           success: true,
-          product,
+          product: retProduct,
         });
       });
   },

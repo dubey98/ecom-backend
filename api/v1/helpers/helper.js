@@ -69,3 +69,19 @@ exports.mapAddressToDTO = function (addressList) {
   }
   return retAddressList;
 };
+
+exports.mapProductToDTO = function (product) {
+  if (product === null) return;
+  const retProduct = {
+    images: [...product.images],
+    brandName: product.brand,
+    brandDescription: product.name,
+    price: product.price.offerPrice,
+    mrpPrice: product.price.mrp,
+    discount: ((product.price.offerPrice / product.price.mrp) * 100).toFixed(1),
+    summary: product.description,
+    sizeFitDescription: "The model (height 6') is wearing a size M",
+    materialandcare: ["Cotton", "Rayon", "Machine wash"],
+  };
+  return retProduct;
+};

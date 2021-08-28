@@ -74,26 +74,31 @@ exports.brandCardData = [
     src: "https://i.ibb.co/RB71wM8/brand-1.jpg",
     alt: "NIKE",
     title: "NIKE",
+    linkTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
   },
   {
     src: "https://i.ibb.co/bFLx4w8/puma-brand.jpg",
     alt: "PUMA",
     title: "PUMA",
+    linkTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
   },
   {
     src: "https://i.ibb.co/C8P1tR4/levis.jpg",
     alt: "NIKE",
     title: "PUMA",
+    linkTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
   },
   {
     src: "https://i.ibb.co/582JfQx/nike.jpg",
     alt: "NIKE",
     title: "KIKI",
+    linkTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
   },
   {
     src: "https://i.ibb.co/C8P1tR4/levis.jpg",
     alt: "NIKE",
     title: "NIKE",
+    linkTo: "/shop/products?0%5Bcategory%5D=brand&0%5Bvalue%5D=Adidas",
   },
 ];
 

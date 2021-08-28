@@ -24,6 +24,8 @@ router.post("/favourite", userController.addToFav);
 
 router.get("/favourite/:id", userController.getFav);
 
+router.get("/favourite/check/:id", userController.checkIfFav);
+
 router.get("/", userController.getAll);
 
 router.get("/:id", userController.findById);

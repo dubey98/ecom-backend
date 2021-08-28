@@ -350,6 +350,24 @@ exports.getFav = [
   },
 ];
 
+exports.checkIfFav = (req, res, next) => {
+  const productId = req.params.id;
+  const userId = req.user.id;
+
+  User.findOne({ _id: userId }).exec((err, user) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    const index = user.favourites.find((fav) => fav.toString() === productId);
+    let result = false;
+    if (index) {
+      result = true;
+    }
+    return res.json({ success: true, wishlisted: result });
+  });
+};
+
 exports.getAllAddresses = (req, res, next) => {
   const userId = req.user.id;
 
@@ -376,7 +394,6 @@ exports.createAddress = [
   body("addressLine", "provide a street address or flat no").trim().notEmpty(),
   body("state", "state is required").trim().notEmpty(),
   (req, res, next) => {
-    console.log("in create address");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({ success: false, errors: errors.array() });

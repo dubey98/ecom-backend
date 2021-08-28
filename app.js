@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const path = require("path");
 
 //import database connection
 const db = require("./api/config/db");
@@ -23,6 +24,12 @@ app.use(passport.initialize());
 app.use(express.static("public"));
 //define routes
 app.use("/api/v1", apiRouter);
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 //populate database for values
 //uncomment to populate dbs
